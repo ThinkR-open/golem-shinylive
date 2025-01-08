@@ -3,14 +3,26 @@
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @import bslib
 #' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
-    fluidPage(
-      golem::golem_welcome_page() # Remove this line to start building your UI
+    page_fluid(
+      theme = bs_theme(
+        version = 5
+      ),
+      card(
+        card_header(
+          h1(
+            "Diagonale des Fous 2024 - Results"
+            , class = "text-center")
+        )
+      ),
+      mod_results_filters_ui("results_filters_1"),
+      mod_results_display_ui("results_display_1")
     )
   )
 }
@@ -30,7 +42,7 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
-    favicon(),
+    favicon(ext = 'png'),
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "diag"
