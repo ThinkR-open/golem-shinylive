@@ -11,23 +11,18 @@ mod_results_filters_ui <- function(id) {
   ns <- NS(id)
   layout_columns(
     col_widths = c(6, 6),
-    card(
       div(
         style = "display: flex; justify-content: center; align-items: center;",
         selectizeInput(
           ns("country"),
           "Country",
-          selected = "All",
           choices = c(
             "All",
             sort(unique(results$Country))
-          ),
-          multiple = TRUE
+          )
         ),
-        class = "text-center"
-      )
-    ),
-    card(
+        class = "overflow-visible text-center"
+      ),
       div(
         style = "display: flex; justify-content: center; align-items: center;",
         selectizeInput(
@@ -36,11 +31,11 @@ mod_results_filters_ui <- function(id) {
           choices = c(
             "All",
             unique(results$Sexe)
-          )
+          ),
+          selected = ""
         ),
-        class = "text-center"
+        class = "overflow-visible text-center"
       )
-    )
   )
 }
 
