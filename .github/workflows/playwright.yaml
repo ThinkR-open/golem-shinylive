@@ -5,12 +5,12 @@ on:
     branches: [main, master]
   pull_request:
 
-name: R-CMD-check.yaml
+name: playwright.yaml
 
 permissions: read-all
 
 jobs:
-  R-CMD-check:
+  playwright:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
