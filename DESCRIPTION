@@ -12,6 +12,7 @@ Imports:
     config,
     DT,
     golem,
+    lubridate,
     pkgload,
     shiny
 Suggests: 
