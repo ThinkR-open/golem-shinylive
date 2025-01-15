@@ -1,0 +1,176 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('http://localhost:3000/');
+  await expect(page.locator('div').filter({ hasText: 'Country AllAll' }).nth(2)).toBeVisible();
+  await expect(page.getByText('Sexe AllAll')).toBeVisible();
+  await expect(page.locator('div').filter({ hasText: 'Race Results Show 102550100' }).nth(2)).toBeVisible();
+  await expect(page.locator('body')).toMatchAriaSnapshot(`
+    - text: Race Results Show
+    - combobox "Show entries":
+      - option /\\d+/ [selected]
+      - option /\\d+/
+      - option /\\d+/
+      - option /\\d+/
+    - text: "entries Search:"
+    - searchbox "Search:"
+    - table:
+      - rowgroup:
+        - 'row "Rank: activate to sort column ascending Name: activate to sort column ascending Time: activate to sort column ascending Country: activate to sort column ascending Sexe: activate to sort column ascending Bib: activate to sort column ascending"':
+          - cell
+          - 'cell "Rank: activate to sort column ascending"'
+          - 'cell "Name: activate to sort column ascending"'
+          - 'cell "Time: activate to sort column ascending"'
+          - 'cell "Country: activate to sort column ascending"'
+          - 'cell "Sexe: activate to sort column ascending"'
+          - 'cell "Bib: activate to sort column ascending"'
+      - rowgroup:
+        - row /1 1 BLANCHARD Mathieu 23H [\\d,.]+[bkmBKM]+ 2S France H \\d+/:
+          - cell "1"
+          - cell "1"
+          - cell "BLANCHARD Mathieu"
+          - cell /23H [\\d,.]+[bkmBKM]+ 2S/
+          - cell "France"
+          - cell "H"
+          - cell /\\d+/
+        - row /2 2 TSCHUMI Jean Philippe 24H [\\d,.]+[bkmBKM]+ 32S Suisse H \\d+/:
+          - cell "2"
+          - cell "2"
+          - cell "TSCHUMI Jean Philippe"
+          - cell /24H [\\d,.]+[bkmBKM]+ 32S/
+          - cell "Suisse"
+          - cell "H"
+          - cell /\\d+/
+        - row /3 3 DHIMAN Ben 24H [\\d,.]+[bkmBKM]+ 53S Etats Unis H \\d+/:
+          - cell "3"
+          - cell "3"
+          - cell "DHIMAN Ben"
+          - cell /24H [\\d,.]+[bkmBKM]+ 53S/
+          - cell "Etats Unis"
+          - cell "H"
+          - cell /\\d+/
+        - row /4 4 PAZOS Diego 26H [\\d,.]+[bkmBKM]+ 42S Suisse H \\d+/:
+          - cell "4"
+          - cell "4"
+          - cell "PAZOS Diego"
+          - cell /26H [\\d,.]+[bkmBKM]+ 42S/
+          - cell "Suisse"
+          - cell "H"
+          - cell /\\d+/
+        - row /5 4 KERN Martin 26H [\\d,.]+[bkmBKM]+ 42S France H \\d+/:
+          - cell "5"
+          - cell "4"
+          - cell "KERN Martin"
+          - cell /26H [\\d,.]+[bkmBKM]+ 42S/
+          - cell "France"
+          - cell "H"
+          - cell /\\d+/
+        - row /6 6 ESMIOL Vincent 27H [\\d,.]+[bkmBKM]+ 0S France H \\d+/:
+          - cell "6"
+          - cell "6"
+          - cell "ESMIOL Vincent"
+          - cell /27H [\\d,.]+[bkmBKM]+ 0S/
+          - cell "France"
+          - cell "H"
+          - cell /\\d+/
+        - row /7 7 SAUTRON Judicael 27H [\\d,.]+[bkmBKM]+ 37S Reunion H \\d+/:
+          - cell "7"
+          - cell "7"
+          - cell "SAUTRON Judicael"
+          - cell /27H [\\d,.]+[bkmBKM]+ 37S/
+          - cell "Reunion"
+          - cell "H"
+          - cell /\\d+/
+        - row /8 8 COINUS Robin 27H [\\d,.]+[bkmBKM]+ 9S Reunion H \\d+/:
+          - cell "8"
+          - cell "8"
+          - cell "COINUS Robin"
+          - cell /27H [\\d,.]+[bkmBKM]+ 9S/
+          - cell "Reunion"
+          - cell "H"
+          - cell /\\d+/
+        - row /9 9 THEVENARD Jean Marie 28H [\\d,.]+[bkmBKM]+ 58S France H \\d+/:
+          - cell "9"
+          - cell "9"
+          - cell "THEVENARD Jean Marie"
+          - cell /28H [\\d,.]+[bkmBKM]+ 58S/
+          - cell "France"
+          - cell "H"
+          - cell /\\d+/
+        - row /\\d+ \\d+ PIPITONE Anthony 28H [\\d,.]+[bkmBKM]+ 16S France H \\d+/:
+          - cell /\\d+/
+          - cell /\\d+/
+          - cell "PIPITONE Anthony"
+          - cell /28H [\\d,.]+[bkmBKM]+ 16S/
+          - cell "France"
+          - cell "H"
+          - cell /\\d+/
+    - status: /Showing 1 to \\d+ of \\d+,\\d+ entries/
+    - list:
+      - listitem:
+        - link "Previous" [disabled]
+      - listitem:
+        - link "1"
+      - listitem:
+        - link "2"
+      - listitem:
+        - link "3"
+      - listitem:
+        - link "4"
+      - listitem:
+        - link "5"
+      - listitem:
+        - link "…" [disabled]
+      - listitem:
+        - link /\\d+/
+      - listitem:
+        - link "Next"
+    `);
+  await page.locator('.selectize-input').first().click();
+  await page.getByRole('option', { name: 'Afrique du Sud' }).click();
+  await expect(page.locator('body')).toMatchAriaSnapshot(`
+    - text: Race Results Show
+    - combobox "Show entries":
+      - option /\\d+/ [selected]
+      - option /\\d+/
+      - option /\\d+/
+      - option /\\d+/
+    - text: "entries Search:"
+    - searchbox "Search:"
+    - table:
+      - rowgroup:
+        - 'row "Rank: activate to sort column ascending Name: activate to sort column ascending Time: activate to sort column ascending Country: activate to sort column ascending Sexe: activate to sort column ascending Bib: activate to sort column ascending"':
+          - cell
+          - 'cell "Rank: activate to sort column ascending"'
+          - 'cell "Name: activate to sort column ascending"'
+          - 'cell "Time: activate to sort column ascending"'
+          - 'cell "Country: activate to sort column ascending"'
+          - 'cell "Sexe: activate to sort column ascending"'
+          - 'cell "Bib: activate to sort column ascending"'
+      - rowgroup:
+        - row /1 \\d+ GREEN Travis 48H [\\d,.]+[bkmBKM]+ 29S Afrique du Sud H \\d+/:
+          - cell "1"
+          - cell /\\d+/
+          - cell "GREEN Travis"
+          - cell /48H [\\d,.]+[bkmBKM]+ 29S/
+          - cell "Afrique du Sud"
+          - cell "H"
+          - cell /\\d+/
+        - row /2 \\d+ TERBLANCHE Erica 51H [\\d,.]+[bkmBKM]+ 56S Afrique du Sud F \\d+/:
+          - cell "2"
+          - cell /\\d+/
+          - cell "TERBLANCHE Erica"
+          - cell /51H [\\d,.]+[bkmBKM]+ 56S/
+          - cell "Afrique du Sud"
+          - cell "F"
+          - cell /\\d+/
+    - status: Showing 1 to 2 of 2 entries
+    - list:
+      - listitem:
+        - link "Previous" [disabled]
+      - listitem:
+        - link "1"
+      - listitem:
+        - link "Next" [disabled]
+    `);
+});
