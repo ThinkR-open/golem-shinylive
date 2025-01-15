@@ -4,7 +4,6 @@ test('test', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await expect(page.locator('div').filter({ hasText: 'Country AllAll' }).nth(2)).toBeVisible();
   await expect(page.getByText('Sexe AllAll')).toBeVisible();
-  await expect(page.locator('div').filter({ hasText: 'Race Results Show 102550100' }).nth(2)).toBeVisible();
   await expect(page.locator('body')).toMatchAriaSnapshot(`
     - text: Race Results Show
     - combobox "Show entries":
@@ -127,7 +126,7 @@ test('test', async ({ page }) => {
         - link "Next"
     `);
   await page.locator('.selectize-input').first().click();
-  await page.getByRole('option', { name: 'Afrique du Sud' }).click();
+  await page.getByRole('option', { name: 'Algerie' }).click();
   await expect(page.locator('body')).toMatchAriaSnapshot(`
     - text: Race Results Show
     - combobox "Show entries":
@@ -148,23 +147,15 @@ test('test', async ({ page }) => {
           - 'cell "Sexe: activate to sort column ascending"'
           - 'cell "Bib: activate to sort column ascending"'
       - rowgroup:
-        - row /1 \\d+ GREEN Travis 48H [\\d,.]+[bkmBKM]+ 29S Afrique du Sud H \\d+/:
+        - row /1 \\d+ BOUAICHA Sonia 55H [\\d,.]+[bkmBKM]+ 15S Algerie F \\d+/:
           - cell "1"
           - cell /\\d+/
-          - cell "GREEN Travis"
-          - cell /48H [\\d,.]+[bkmBKM]+ 29S/
-          - cell "Afrique du Sud"
-          - cell "H"
-          - cell /\\d+/
-        - row /2 \\d+ TERBLANCHE Erica 51H [\\d,.]+[bkmBKM]+ 56S Afrique du Sud F \\d+/:
-          - cell "2"
-          - cell /\\d+/
-          - cell "TERBLANCHE Erica"
-          - cell /51H [\\d,.]+[bkmBKM]+ 56S/
-          - cell "Afrique du Sud"
+          - cell "BOUAICHA Sonia"
+          - cell /55H [\\d,.]+[bkmBKM]+ 15S/
+          - cell "Algerie"
           - cell "F"
           - cell /\\d+/
-    - status: Showing 1 to 2 of 2 entries
+    - status: Showing 1 to 1 of 1 entries
     - list:
       - listitem:
         - link "Previous" [disabled]
